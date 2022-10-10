@@ -15,6 +15,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
      token will be the concatenation of the 'baseURI' and the 'tokenId'
      */
 
+
+
     string _baseTokenURI;
 // the price of one LW3Punks NFT
     uint256 public _price = 0.01 ether;
@@ -51,7 +53,13 @@ uint256 public tokenIds;
         tokenIds += 1;
         _safeMint(msg.sender, tokenIds);
     }
-
+   /**
+    * @dev _baseURI overides the Openzeppelin's ERC721 implementation which by default
+    * returned an empty string for the baseURI
+    */
+    function _baseURI() internal view virtual override returns (string memory) {
+        return _baseTokenURI;
+    }
     // _baseURI overrides the Openzeppelin's ERC721 implementation which by default 
     // returned an empty string for the 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory){
